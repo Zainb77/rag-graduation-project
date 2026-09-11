@@ -1,0 +1,25 @@
+# Python / Virtual Envs
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Vector Stores & Local DBs
+vectorstore/
+chroma_db/
+*.faiss
+*.pkl
+
+# Data / PDFs 
+data/*.pdf
+
+# VS Code & PyCharm
+.vscode/
+.idea/
+
+# Testing Cache
+.pytest_cache/
+.coverage
