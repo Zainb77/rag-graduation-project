@@ -93,4 +93,4 @@ python -m pytest backend/tests/test_query.py
 
 ## 🎥 Video Demonstration
 
-👉 **[Click Here to Watch Full Live Demo Video](https://drive.google.com/file/d/1NBeAWyHYKRcFoQ0fb4yqRB74vWiUIEy5/view?usp=sharing)**
+👉 **[Click Here to Watch Full Live Demo Video](https://drive.google.com/file/d/1NBeAWyHYkRcFoQOfb4yqRB74vWiUIEy5/view?usp=sharing)**
