@@ -1,59 +1,60 @@
-# 🤖 RAG-Powered Knowledge Application
+# 🐴 NeoHorse-1: Enterprise RAG System
 
-An end-to-end Retrieval-Augmented Generation (RAG) system built with FastAPI, Streamlit, LangChain, FAISS, and Ollama.
-
-## 📐 System Architecture
-
-```text
-+-------------------+       HTTP POST        +-------------------+
-|                   |  ------------------->  |                   |
-| Streamlit UI      |   /query {question}    |  FastAPI Backend  |
-| (Frontend)        |                        | (RAG Pipeline)    |
-|                   |  <-------------------  |                   |
-+-------------------+     {answer, sources}  +---------+---------+
-                                                       |
-                                            +----------+----------+
-                                            |                     |
-                                            v                     v
-                                    +---------------+     +---------------+
-                                    |  FAISS Vector |     |  Ollama LLM   |
-                                    |     Store     |     |  (Llama 3)    |
-                                    +---------------+     +---------------+
-
-## 🛠️ Tech Stack
-
-* **Frontend:** Streamlit, Requests
-* **Backend:** FastAPI, Pytest, Uvicorn
-* **Vector Store:** FAISS
-* **Embeddings:** HuggingFace `all-MiniLM-L6-v2`
-* **LLM Orchestration:** Groq API (`llama-3.1-8b-instant`), LangChain
+A production-ready **Retrieval-Augmented Generation (RAG)** solution built with a decoupled architecture featuring a **FastAPI** backend and an interactive **Streamlit** UI.
 
 ---
 
-## 📁 Project Structure
+## 🏗 System Architecture
+
+```mermaid
+graph TD
+    Client[Streamlit UI Frontend] -->|HTTP POST /query| API[FastAPI Backend Pipeline]
+    API -->|Vector Similarity Search| VectorStore[(FAISS Vector Store)]
+    API -->|Prompt & Contextualization| LLM[Groq API / Llama 3]
+    VectorStore -->|Retrieved Chunks| API
+    LLM -->|Generated Answer + Sources| API
+    API -->|JSON Response| Client
+```
+
+---
+
+## 🛠 Tech Stack
+
+| Component | Technology |
+| :--- | :--- |
+| **Frontend** | Streamlit, Requests |
+| **Backend** | FastAPI, Uvicorn, Pytest |
+| **Vector Database** | FAISS |
+| **Embeddings** | HuggingFace (`all-MiniLM-L6-v2`) |
+| **LLM Orchestration** | LangChain, Groq API (`llama-3.1-8b-instant`) |
+
+---
+
+## 📂 Project Structure
+
+```text
 rag-graduation-project/
-│
 ├── backend/
 │   ├── app/
+│   │   ├── __init__.py
 │   │   ├── main.py
 │   │   └── rag_engine.py
 │   ├── tests/
+│   │   ├── test_main.py
 │   │   └── test_query.py
 │   ├── .env.example
 │   └── requirements.txt
-│
 ├── frontend/
-│   ├── app.py
 │   ├── api_client.py
+│   ├── app.py
 │   ├── .env.example
 │   └── requirements.txt
-│
 ├── notebooks/
 │   └── rag_pipeline.ipynb
-│
-├── .env.example
-├── .gitignore
-└── README.md
+├── conftest.py
+├── README.md
+└── .gitignore
+```
 
 ---
 
@@ -66,22 +67,30 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
 
-2. Frontend Setup
+### 2. Frontend Setup
+```bash
 cd frontend
 streamlit run app.py
+```
 
-3. Run Automated Tests
+### 3. Run Automated Tests
+```bash
 python -m pytest backend/tests/test_query.py
+```
 
-📡 API Endpoints
-GET /health: Returns system operational status.
+---
 
-POST /query: Accepts JSON {"question": "..."} and returns answer with retrieved document citations.
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/health` | Returns system operational status. |
+| `POST` | `/query` | Accepts JSON `{"question": "..."}` and returns answer with sources. |
 
 ---
 
 ## 🎥 Video Demonstration
 
-Watch the full system walkthrough and live demo here:
-👉 [Click to Watch Demo Video](https://drive.google.com/file/d/1NBeAWyHYkRcFoQOfb4yqRB74vWiUIEy5/view?usp=sharing)
+👉 **[Click Here to Watch Full Live Demo Video](https://drive.google.com/file/d/1NBeAWyHYKRcFoQ0fb4yqRB74vWiUIEy5/view?usp=sharing)**
